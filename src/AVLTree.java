@@ -10,6 +10,9 @@
 public class AVLTree {
 
 	private IAVLNode root;
+	private IAVLNode min;
+	private IAVLNode max;
+	private int size;
 
   /**
    * public boolean empty()
@@ -35,14 +38,14 @@ public class AVLTree {
 		return node.getValue();
 	}
 	if (k < node.getKey()){
-		return re
+		return rec_search(node.getLeft(),k);
 	}
-
+	else {
+		return rec_search(node.getRight(),k);
+	}
  }
-  public String search(int k)
-  {
-
-  	 // to be replaced by student code
+  public String search(int k) {
+  	 return rec_search(this.getRoot(),k);
   }
 
   /**
@@ -54,6 +57,9 @@ public class AVLTree {
    * A promotion/rotation counts as one re-balance operation, double-rotation is counted as 2.
    * Returns -1 if an item with key k already exists in the tree.
    */
+
+
+
    public int insert(int k, String i) {
 	  return 420;	// to be replaced by student code
    }
@@ -78,17 +84,22 @@ public class AVLTree {
     * Returns the info of the item with the smallest key in the tree,
     * or null if the tree is empty.
     */
-   public String min() {
-   	IAVLNode parent = root;
-   	if (this.empty()){
-   		return null;
-	}
-   	IAVLNode left = root.getLeft();
+
+   public String min_help(){
+	   IAVLNode parent = root;
+	   if (this.empty()){
+		   return null;
+	   }
+	   IAVLNode left = root.getLeft();
 	   while(left.isRealNode()){
-	   	parent = left;
-	   	left = left.getLeft();
+		   parent = left;
+		   left = left.getLeft();
 	   }
 	   return parent.getValue();
+
+   }
+   public String min() {
+   	return this.min.getValue();
 
    }
 
@@ -100,8 +111,22 @@ public class AVLTree {
     */
    public String max()
    {
-	   return "maxDefaultString"; // to be replaced by student code
+   	return this.max.getValue();
+
    }
+
+	public String max_help() {
+		IAVLNode parent = this.getRoot();
+		if (this.empty()){
+			return null;
+		}
+		IAVLNode right = parent.getRight();
+		while(right.isRealNode()){
+			parent = right;
+			right = right.getRight();
+		}
+		return parent.getValue(); // to be replaced by student code
+	}
 
   /**
    * public int[] keysToArray()
@@ -109,6 +134,11 @@ public class AVLTree {
    * Returns a sorted array which contains all keys in the tree,
    * or an empty array if the tree is empty.
    */
+
+  public IAVLNode[] inorder(){
+  	root = this.getRoot();
+
+  }
   public int[] keysToArray()
   {
         return new int[33]; // to be replaced by student code
@@ -133,7 +163,7 @@ public class AVLTree {
     */
    public int size()
    {
-	   return 422; // to be replaced by student code
+	   return this.size; // to be replaced by student code
    }
    
    /**
@@ -143,7 +173,7 @@ public class AVLTree {
     */
    public IAVLNode getRoot()
    {
-	   return null;
+	   return this.root;
    }
    
    /**
@@ -206,6 +236,7 @@ public class AVLTree {
   		private IAVLNode parent;
   		private IAVLNode left;
   		private IAVLNode right;
+  		private int height;
 		public int getKey()
 		{
 			return this.key; // to be replaced by student code
@@ -225,19 +256,19 @@ public class AVLTree {
 		}
 		public void setRight(IAVLNode node)
 		{
-			return; // to be replaced by student code
+			this.right = node; // to be replaced by student code
 		}
 		public IAVLNode getRight()
 		{
-			return null; // to be replaced by student code
+			return this.right; // to be replaced by student code
 		}
 		public void setParent(IAVLNode node)
 		{
-			return; // to be replaced by student code
+			this.parent=node; // to be replaced by student code
 		}
 		public IAVLNode getParent()
 		{
-			return null; // to be replaced by student code
+			return this.parent; // to be replaced by student code
 		}
 		public boolean isRealNode()
 		{
@@ -245,11 +276,11 @@ public class AVLTree {
 		}
 	    public void setHeight(int height)
 	    {
-	      return; // to be replaced by student code
+	       this.height = height; // to be replaced by student code
 	    }
 	    public int getHeight()
 	    {
-	      return 424; // to be replaced by student code
+	      return this.getHeight(); // to be replaced by student code
 	    }
   }
 
